@@ -242,6 +242,7 @@ namespace Chr.Avro.Codegen
                     value = true;
                     break;
 
+                case FixedSchema f when f.LogicalType is UuidLogicalType && f.Size == 16:
                 case StringSchema s when s.LogicalType is UuidLogicalType:
                     type = SyntaxFactory.ParseTypeName("global::System.Guid");
                     value = true;
@@ -276,8 +277,18 @@ namespace Chr.Avro.Codegen
                     value = true;
                     break;
 
+                case IntSchema i when i.LogicalType is UnsignedIntLogicalType:
+                    type = SyntaxFactory.ParseTypeName("uint");
+                    value = true;
+                    break;
+
                 case IntSchema i:
                     type = SyntaxFactory.ParseTypeName("int");
+                    value = true;
+                    break;
+
+                case LongSchema l when l.LogicalType is UnsignedLongLogicalType:
+                    type = SyntaxFactory.ParseTypeName("ulong");
                     value = true;
                     break;
 
